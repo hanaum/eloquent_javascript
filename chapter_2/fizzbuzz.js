@@ -1,5 +1,5 @@
-function fizzbuzz() {
-  for (var i = 1; i <= 100; i++) {
+function fizzbuzz(limit) {
+  for (var i = 1; i <= limit; i++) {
     var output = '';
     if (i % 3 === 0) {
       output += 'Fizz';
@@ -16,4 +16,4 @@ function fizzbuzz() {
   }
 }
 
-fizzbuzz();
+fizzbuzz(100);
