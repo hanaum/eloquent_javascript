@@ -1,25 +1,47 @@
 function logFive(sequence) {
+	var iterator = sequence.iterator();
 	var count = 0;
-	for (var i = 0; i < 5; i++) {
-		console.log(sequence[i]);
+	while (iterator.hasNext() && count < 5) {
+		console.log(iterator.next());
 		count++;
-		if (count === sequence.length) {
-			break;
-		}
+	}
+}
+
+function Iterator(array) {
+	this.array = array;
+	this.counter = -1;
+}
+
+Iterator.prototype.hasNext = function() {
+	return this.counter < this.array.length - 1;
+}
+
+Iterator.prototype.next = function() {
+	if (this.hasNext()) {
+		this.counter++;
+		return this.array[this.counter];
+	} else {
+		throw "No more elements";
 	}
 }
 
 function ArraySeq(array) {
 	this.array = array;
-	return this.array;
 }
 
+ArraySeq.prototype.iterator = function() {
+	return new Iterator(this.array);
+};
+
 function RangeSeq(from, to) {
-	var array = [];
+	this.array = [];
 	for (var i = from; i < to; i++) {
-		array.push(i);
+		this.array.push(i);
 	}
-	return array;
+}
+
+RangeSeq.prototype.iterator = function() {
+	return new Iterator(this.array);
 }
 
 logFive(new ArraySeq([1, 2]));
